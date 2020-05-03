@@ -1,0 +1,29 @@
+module.exports = {
+    STATUS_CODE: {
+        SUCCESS: 7000,
+        SERVER_ERROR: 7001,
+        VALID_VALUE: 7002,
+        DB_ERROR: 7003,
+        INVALID_VALUE: 7004,
+        NOT_FOUND: 7005,
+        EXPIRED_VALUE: 7006,
+        EXISTED_VALUE: 7007,
+        EXSITED_KYC: 7008,
+        NOT_SENT_KYC: 7009,
+        UNVERIFIED_EMAIL: 7010,        
+        UNAUTHORIZATION: 7011,
+        BLOCKCHAIN_ERROR: 7012,
+        USER_SETTING: 7013,
+        NOT_ENOUGH_BALANCE: 7014,
+        PIN_CODE: 7015,
+        OTP_CODE: 7016
+    },
+    HTTP_STATUS_CODE: {
+        SUCCESS: 200,
+        CREATED: 201,
+        UNAUTHORIZED: 401,
+        BAD_REQUEST: 400,
+        NOT_FOUND: 404,
+        INTERNAL_SERVER_ERROR: 500
+    }
+}
