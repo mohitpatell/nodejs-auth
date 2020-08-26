@@ -1,14 +1,14 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "The backend side for freelance platform",
+  "description": "The backend for basic authentication",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "mocha --timeout 10000 --exit",
     "lint": "eslint"
   },
-  "author": "Oanh Nguyen (friendforever0710@gmail.com)",
+  "author": "Mohit Patel (mohitpatel9753@gmail.com)",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^6.5.4",
