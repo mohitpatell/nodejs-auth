@@ -23,7 +23,6 @@ exports._formHttpRequest = async (req, simple = false, resolveWithFullResponse =
         simple,
         resolveWithFullResponse
     }
-
     return httpRequest(options)
 }
 
@@ -47,6 +46,5 @@ exports._jsonHttpRequest = async (req, simple = false, resolveWithFullResponse =
         simple,
         resolveWithFullResponse
     }
-
     return httpRequest(options)
 }

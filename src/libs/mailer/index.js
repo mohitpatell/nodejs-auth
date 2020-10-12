@@ -4,7 +4,7 @@ const { compile } = require('ejs')
 const sgMail = require('@sendgrid/mail')
 
 const { 
-    SENDGRID_EMAIL,
+    SENDGRID_FROM_EMAIL,
     SENDGRID_SENDER,
     SENDGRID_API_KEY
 } = require('../../../config/config')
@@ -29,7 +29,7 @@ const readAndCompileTemplate = async (data) => {
 
 const send = async (data) => {
     const email = {
-        from: { email: `${SENDGRID_EMAIL}`, name: `${SENDGRID_SENDER}` },
+        from: { email: `${SENDGRID_FROM_EMAIL}`, name: `${SENDGRID_SENDER}` },
         to: data.to,
         subject: data.subject,
         html: await readAndCompileTemplate(data)
@@ -37,12 +37,13 @@ const send = async (data) => {
     return new Promise((resolve, reject) => {
         sgMail.send(email, (error, info) => {
             if (error) {
+                console.log(error)
                 reject(error)
             } else {
+                console.log(info)
                 resolve(info)
             }
         })
-        resolve(true)
     })
 }
 

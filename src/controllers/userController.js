@@ -15,44 +15,38 @@ const {
     TYPE_LOG
 } = require('../common/helpers/constant')
 
-
-const USER_TOKEN_EXPIRED = 1800 // expires in seconds
-
-
+const USER_TOKEN_EXPIRED = 60 * 60 * 24 * 30 // expires in seconds
 const signup = async (req, res) => {  
     const {
-        username,
+        fullName,
         email,
-        password
+        password,
+        universityName
     } = req.body
 
     let isSendEmail = false
-    let accountName = username
 
     let response = Response(STATUS_CODE.SUCCESS, SIGNUP.SUCCESS, '')
     const pinCode = otpGenerator.generate(6, { specialChars: false })
     let validEmail = email.split('+')[0]
-    console.log(validEmail,'valid email')
-    validEmail = validEmail + '@' + email.split('@')[1]
-console.log(validEmail,'valid email&&')
+    validEmail = validEmail === email ? validEmail : validEmail + '@' + email.split('@')[1]
     try {
-        const existedUser = await User.findOne({ email: `${email}` })
-        console.log(existedUser,'user exist @@@')
-        console.log(isEmpty(existedUser),'test');
+        const existedUser = await User.findOne({ email: `${validEmail}` })
+        console.log(existedUser)
         if (isEmpty(existedUser)) {
             const userData = {
-                account_name: `${username}`,
-                email: `${email.toLocaleLowerCase()}`,
+                full_name: `${fullName}`,
+                email: `${validEmail.toLocaleLowerCase()}`,
                 code: pinCode,
                 email_status: VERIFY_STATUS.UNVERIFIED,
                 password: `${password}`,
+                university_name: universityName,
                 expired_at: Date.now()
             }
             await User.create(userData)
             isSendEmail = true
         } else if (existedUser.email_status === VERIFY_STATUS.UNVERIFIED) {
-            accountName = existedUser.account_name
-            await User.findOneAndUpdate({ email: `${email}` }, 
+            await User.findOneAndUpdate({ email: `${validEmail}` }, 
                 { code: pinCode, expired_at: Date.now() })
          
             isSendEmail = true
@@ -63,7 +57,7 @@ console.log(validEmail,'valid email&&')
 
         if (isSendEmail) {
             const emailParams = {
-                name: accountName,
+                name: fullName,
                 info: pinCode
             }
             await sendEmail(email.toLocaleLowerCase(),
@@ -138,7 +132,7 @@ const login = async (req, res) => {
         } else if (existedUser.email_status === VERIFY_STATUS.UNVERIFIED) {
             response.statusCode = STATUS_CODE.UNVERIFIED_EMAIL
             response.message = LOGIN.UNVERIFIED_MAIL
-        } else if(password !== existedUser.password) {
+        } else if (password !== existedUser.password) {
             response.statusCode = STATUS_CODE.INVALID_VALUE
             response.message = LOGIN.WRONG_PASS_EMAIL
         } else {
@@ -146,13 +140,12 @@ const login = async (req, res) => {
 
             let userInfo = {
                 username: existedUser.account_name,
-                email: existedUser.email,
-                userIp: ((req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress),
-                lastVisted: Date.now()
+                email: existedUser.email
+            
             }
             response.data = {
                 user: userInfo,
-                token: token,
+                token: token
             }
         }
     } catch (err) {
@@ -173,7 +166,6 @@ const logout = async (req, res) => {
     }
     res.send(response)
 }
-
 
 module.exports = {
     signup,

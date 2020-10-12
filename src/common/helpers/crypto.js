@@ -3,14 +3,14 @@ const crypto = require('crypto')
 const password = 'G#379thoTzrU$%nKAsert%6^789UtyCV'
 const IV_SIZE = 16
 
-const encrypt = (plainText, keyString)=> {
-    const iv = crypto.randomBytes(IV_SIZE);
-    const cipher = crypto.createCipheriv("aes-256-cbc", keyString, iv);
-    let cipherText = cipher.update(Buffer.from(plainText, "utf8"));
-    cipherText = Buffer.concat([cipherText, cipher.final()]);
-    const combinedData = Buffer.concat([iv, cipherText]);
-    const combinedString = combinedData.toString("base64");
-    return combinedString;
+const encrypt = (plainText, keyString) => {
+    const iv = crypto.randomBytes(IV_SIZE)
+    const cipher = crypto.createCipheriv('aes-256-cbc', keyString, iv)
+    let cipherText = cipher.update(Buffer.from(plainText, 'utf8'))
+    cipherText = Buffer.concat([cipherText, cipher.final()])
+    const combinedData = Buffer.concat([iv, cipherText])
+    const combinedString = combinedData.toString('base64')
+    return combinedString
 }
 
 const decrypt = (encryptedPinCode) => {

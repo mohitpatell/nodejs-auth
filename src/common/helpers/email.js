@@ -11,10 +11,6 @@ const sendEmail = async (toEmail, params, type, subject) => {
         }
     }
     logger.debug('Sending an email', { email: `${toEmail}` })
-    console.log('Sending an email', { email: `${toEmail}` })
     await send(mailBody)
-    .then(res=> {
-        console.log(res,'resposne******')
-    })
 }
 module.exports = sendEmail
