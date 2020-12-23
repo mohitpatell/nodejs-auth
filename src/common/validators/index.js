@@ -30,7 +30,6 @@ const validateLogin = [checkSchema(rules.login), validate]
 const validateVerifyEmail = [checkSchema(rules.verifyEmail), validate]
 const validateResetPass = [checkSchema(rules.resetPassword), validate]
 
-
 module.exports = {
     validateSignup,
     validateLogin,

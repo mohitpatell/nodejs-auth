@@ -1,9 +1,5 @@
 const { 
-    REDIS_URL,
-    PUSHER_ID,
-    PUSHER_API_KEY,
-    PUSHER_SECRET_KEY,
-    PUSHER_CLUSTER
+    REDIS_URL
 } = require('../../../config/config')
 // const { URL } = require('url')
 const Promise = require('bluebird')
@@ -14,8 +10,7 @@ const createRedisClient = (redisUrl) => {
     return redisInstance
 }
 
-
 const redisClient = createRedisClient(`${REDIS_URL}`)
 module.exports = {
-    redisClient,
+    redisClient
 }

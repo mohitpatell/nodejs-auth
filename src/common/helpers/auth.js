@@ -5,10 +5,9 @@ const { STATUS_CODE } = require('../helpers/response-code')
 const { AUTHENTICATION } = require('../helpers/constant')
 const { User } = require('../../../db/models')
 const { redisClient } = require('./redisClient')
-const { decrypt } = require('./crypto')
+// const { decrypt } = require('./crypto')
 
 const authenticationToken = 'AwerT$&*123PoqweCv'
-
 
 const validateUser = async (token, username) => {
     let isExist = await redisClient.getAsync(`${token}`)
@@ -30,7 +29,7 @@ const genJWTToken = async (username, expTime) => {
     })
     await redisClient.setAsync(token, username)
     let isExist = await redisClient.getAsync(`${token}`)
-    console.log(isExist,'validate $$$$')
+    console.log(isExist, 'validate $$$$')
     redisClient.expire(token, expTime)
     return token
 }
@@ -40,13 +39,8 @@ const isAuthenticate = async (req, res, next) => {
 
     try {
         const token = req.header('Authorization').replace('Bearer', '').trim()
-        // console.log(token,'&&&&&')
         if (token) {
-            console.log('hit #@#####')
-            // const decrypedToken = decrypt(token)
-            console.log(token,'before decoded #####')
             const decoded = jwt.verify(token, authenticationToken)
-            console.log(decoded,'after decoded #####')
             if (decoded.exp <= (Date.now() / 1000)) {
                 response.statusCode = STATUS_CODE.EXPIRED_VALUE
                 response.message = AUTHENTICATION.TOKEN_EXPIRED
@@ -63,13 +57,11 @@ const isAuthenticate = async (req, res, next) => {
         response.statusCode = STATUS_CODE.SERVER_ERROR
         response.message = AUTHENTICATION.TOKEN_NOT_FOUND
         response.hasError = true
-        console.log("Has gone is in catch blog", response.hasError)
     }
-    console.log("After Catch Block ##*&&&&",response.hasError)
 
     if (response.hasError) {
         console.log('has error true !@!@@@')
-     res.send(response)
+        res.send(response)
     } else {
         next()
     }

@@ -12,8 +12,6 @@ const systemError = (msg) => {
     return Response(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, msg, '')
 }
 
-
-
 module.exports = {
     Response,
     systemError
