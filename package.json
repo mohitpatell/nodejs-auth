@@ -29,7 +29,7 @@
     "mongo-seeding-cli": "^3.4.0",
     "mongoose": "^5.9.4",
     "node-fetch": "^2.6.0",
-    "node-forge": "^0.9.1",
+    "node-forge": "^1.0.0",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "otp-generator": "^1.1.0",
     "random-number": "0.0.9",
