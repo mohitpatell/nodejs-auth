@@ -28,7 +28,7 @@
     "mongo-seeding": "^3.4.0",
     "mongo-seeding-cli": "^3.4.0",
     "mongoose": "^5.9.4",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "node-forge": "^0.9.1",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "otp-generator": "^1.1.0",
