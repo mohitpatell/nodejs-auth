@@ -24,7 +24,7 @@
     "express-validator": "^6.4.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "mocha": "^7.1.0",
+    "mocha": "^10.2.0",
     "mongo-seeding": "^3.4.0",
     "mongo-seeding-cli": "^3.4.0",
     "mongoose": "^5.9.4",
